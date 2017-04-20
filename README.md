@@ -7,9 +7,15 @@
 ## Purpose of Talk
 
   - Metaprogramming with Boost.Hana (with a focus on Nbdl)
-  - Library Structure
   - Demonstrate that C++ can do better than other languages including its former self
     - `C++ >`
+  - Topics
+    - Concepts
+    - Abstraction
+    - Store
+    - Promises
+    - Rendering
+    - Deployment
 
 ## Purpose of Nbdl
 
@@ -73,6 +79,10 @@
     - Sample of Immutable TextNode
   - Metaprogrammatically Generate UIViews (hopefully)
   - Generic Document Structure
+
+## Deployment
+  - Building with Docker
+  - Deploying with Docker
 
 ## Conclusion
   - ??
