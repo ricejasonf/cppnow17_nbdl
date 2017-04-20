@@ -6,12 +6,12 @@
 
 ## Purpose of Talk
 
-  - Metaprogramming with Boost.Hana
+  - Metaprogramming with Boost.Hana (with a focus on Nbdl)
   - Library Structure
   - Demonstrate that C++ can do better than other languages including its former self
     - `C++ >`
 
-## Purpose of Library
+## Purpose of Nbdl
 
   - Manage state
   - Communicate changes in state
