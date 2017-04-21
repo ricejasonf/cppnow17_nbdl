@@ -7,8 +7,13 @@
 ## Purpose of Talk
 
   - Metaprogramming with Boost.Hana (with a focus on Nbdl)
-  - Demonstrate that C++ can do better than other languages including its former self
-    - `C++ >`
+  - Statement that C++ can do better (than other languages including its former self)
+    - `C++ > Javascript`
+    - `C++ > Rust`
+    - `C++ > Elm`
+    - `C++ > Rust/Elm`
+    - `C++ > C++`
+  - Potential using empty struct
   - Topics
     - Concepts
     - Abstraction
@@ -21,6 +26,9 @@
 
   - Manage state
   - Communicate changes in state
+    - UI Components
+    - Server
+    - Other Clients
   - Provide implementations for common use cases 
 
 ## Concepts
@@ -49,7 +57,7 @@
   - `hana::tag_of`
   - Template specialization
     - `store_impl<hana::map_tag>`
-    - `store_impl<nbdl::map_tag>`
+    - `store_impl<nbdl::variant_tag>`
   - Concept Implementation
     - `hana::default_` with `nbdl::match_impl`
     - `nbdl::Store`
