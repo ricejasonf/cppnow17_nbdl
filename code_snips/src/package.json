@@ -9,7 +9,6 @@
   "author": "Jason Rice",
   "license": "ISC",
   "dependencies": {
-    "highlightjs": "^9.10.0",
     "inline-css": "^2.2.2"
   }
 }

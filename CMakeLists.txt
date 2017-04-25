@@ -17,4 +17,5 @@ endif (${EMSCRIPTEN})
 
 include_directories(${cppnow17_nbdl_project_SOURCE_DIR}/include)
 
+add_subdirectory(code_snips)
 add_subdirectory(metabench)

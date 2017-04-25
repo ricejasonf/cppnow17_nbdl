@@ -1,18 +1,23 @@
-set(code_snips_npm ${CMAKE_BINARY_DIR}/code_snips_npm)
+set(code_snips_dir ${CMAKE_BINARY_DIR}/code_snips)
+set(code_snips_npm ${CMAKE_BINARY_DIR}/code_snips/src)
 
 add_custom_command(
-  OUTOUT ${code_snips_npm}/index.js
-  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/code_snips/src ${code_snips_npm}
+  OUTPUT ${code_snips_npm}/index.js
+  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/code_snips ${code_snips_dir}
 )
 
 add_custom_command(
-  OUTPUT ${code_snips_npm}
+  OUTPUT ${code_snips_npm}/node_modules
   COMMAND npm install --silent
   WORKING_DIRECTORY ${code_snips_npm}
   COMMENT "Resolve npm deps for code_snips"
+  DEPENDS
+  ${code_snips_npm}/index.js
 )
 
 add_custom_target(code_snips
+  WORKING_DIRECTORY "./src"
+  COMMAND node index.js
   DEPENDS
   ${code_snips_npm}/index.js
   ${code_snips_npm}/node_modules
