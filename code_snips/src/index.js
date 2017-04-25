@@ -7,7 +7,7 @@ const escape_quotes = (html) => html.replace(/"/g, '\\"')
 const get_code_file = (name) => fs.readFileSync('../code/' + name, 'utf8')
 const stylize = (css, html) => inline_css(html, { url: 'm', extraCss: css, removeHtmlSelectors: true })
 const to_hana_string = (str) => "hana::string<'" + str.split('').join("', '") + "'>"
-const to_string_literal = (html) => '\n    "' + html.split('\n').join('"\n    "') + '"'
+const to_string_literal = (html) => '\n    "' + html.split('\n').join('\\n"\n    "') + '"'
 
 const specialize = (name, string_literal) => [
   'template<>\nstruct code_syntax<', to_hana_string(name), '>  {\n'

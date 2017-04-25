@@ -3,6 +3,8 @@ set(code_snips_npm ${CMAKE_BINARY_DIR}/code_snips/src)
 
 add_custom_command(
   OUTPUT ${code_snips_npm}/index.js
+  DEPENDS
+  ${CMAKE_SOURCE_DIR}/code_snips/src/index.js
   COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/code_snips ${code_snips_dir}
 )
 
