@@ -2,6 +2,9 @@
 # docker to manage the development environment.
 
 image_develop:
+	docker build -f ./docker/Dockerfile-develop -t cppnow17_nbdl:develop .
+
+image_develop_no_cache:
 	docker pull ricejasonf/emscripten \
 	&& docker build --no-cache=true -f ./docker/Dockerfile-develop -t cppnow17_nbdl:develop .
 

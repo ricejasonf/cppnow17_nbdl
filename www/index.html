@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+  <meta content="utf-8" http-equiv="encoding">
+  <title>Full Stack Blog</title>
+  <link rel="stylesheet" href="/origins.css" />
+</head>
+<body>
+  <div id="nbdl-app">
+    <h1>Sample Code</h1>
+    <p>Here is some information</p>
+    <ul>
+      <li>Item #1</li>
+      <li>Item #2</li>
+      <li>Item #3</li>
+      <li>Item #4</li>
+    <pre>
+
+    <span style="color: #96cbfe;">std</span>::<span style="color: #96cbfe;">string</span> result;
+    <span style="color: #E3CEAB;">account_t</span> account{
+      <span style="color: #96cbfe;">std</span>::<span style="color: #96cbfe;">string</span>{<span style="color: #a8ff60;">"@JasonRice_"</span>}
+    , <span style="color: #E3CEAB;">person_t</span>{<span style="color: #96cbfe;">hana</span>::<span style="color: #96cbfe;">make_tuple</span>(name_first{<span style="color: #a8ff60;">"Jason"</span>}, name_last{<span style="color: #a8ff60;">"Rice"</span>})}
+    };
+    <span style="color: #96cbfe;">nbdl</span>::<span style="color: #96cbfe;">match_path</span>(
+      account
+    , <span style="color: #96cbfe;">hana</span>::<span style="color: #96cbfe;">make_tuple</span>(person_s, name_s, <span style="color: #96cbfe;">hana</span>::type_c&lt;name_last&gt;)
+    , [&amp;](name_last <span style="color: #E3CEAB;">const</span>&amp; x) { result = x.<span style="color: #96cbfe;">value</span>; }
+    , [](<span style="color: #E3CEAB;">auto</span>&amp;&amp;) { }
+    );
+    CHECK(result == <span style="color: #96cbfe;">std</span>::<span style="color: #96cbfe;">string</span>{<span style="color: #a8ff60;">"Rice"</span>});
+
+    </pre>
+  </div>
+</body>
+</html>

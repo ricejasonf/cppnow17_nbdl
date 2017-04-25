@@ -1,0 +1,65 @@
+@font-face {
+	font-family:planer;
+	src: url('/fonts/jonathan-hill_planer/Planer_Reg.otf');
+}
+body {
+	font-family:planer, monospace;
+	background-color:#0A0A0A;
+	color:#CCCCCC;
+	padding:1em;
+	font-size:1.5em;
+}
+strong {
+	color:#FFFFFF;
+}
+
+a {
+	color:inherit;
+	text-decoration:underline;
+}
+
+p {
+	max-width:1024px;
+}
+
+pre.syntax {
+	font-size:1.2em;
+	background-color:#000000;
+}
+
+.header-bar a {
+	color:#7D7D7D;
+}
+.header-bar a:hover {
+	color:#FFFFFF;
+}
+.header-bar a.logo {
+	text-decoration:none;
+}
+
+.header-bar .main-nav {
+	float:right;
+}
+
+.page h1:after {
+	color:#474747;
+	color:#333333;
+	content: ">";
+}
+.page a:hover {
+	color:#FFFFFF;
+}
+
+.footer {
+	font-size:0.8em;
+	margin-top:15px;
+}
+
+
+.blog-index .entry-index-summary {
+	padding:1em;
+	padding-top:0;
+	border:1px solid #333333;
+	margin-bottom:1em;
+	max-width:1024px;
+}
