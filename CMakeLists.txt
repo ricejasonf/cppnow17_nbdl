@@ -16,6 +16,7 @@ else (${EMSCRIPTEN})
 endif (${EMSCRIPTEN})
 
 include_directories(${cppnow17_nbdl_project_SOURCE_DIR}/include)
+include_directories(${CMAKE_BINARY_DIR}/code_snips/generated_include)
 
 add_subdirectory(code_snips)
 add_subdirectory(metabench)

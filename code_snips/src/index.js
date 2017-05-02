@@ -25,6 +25,8 @@ const get_inlined = (name) => stylize(fs.readFileSync('./highlightjs/styles/ir-b
                                                    html
                                                    ))))
 
+fs.mkdirSync('../generated_include')
+
 Promise.all(fs.readdirSync('../code/').map(get_inlined))
-.then((parts) => fs.writeFileSync('../output.hpp', parts.join('\n\n')))
+.then((parts) => fs.writeFileSync('../generated_include/generated_code_syntax.hpp', parts.join('\n\n')))
 .catch((err) => console.log('REJECTION: ', err))

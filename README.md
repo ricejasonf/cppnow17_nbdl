@@ -7,14 +7,9 @@
 ## Purpose of Talk
 
   - Metaprogramming with Boost.Hana (with a focus on Nbdl)
-  - Statement that C++ can do better (than other languages including its former self)
-    - `C++ > Javascript`
-    - `C++ > Rust`
-    - `C++ > Elm`
-    - `C++ > Rust/Elm`
-    - `C++ > C++`
-  - Potential using empty struct
   - Topics
+    - Empty Interface
+    - Purpose of Nbdl
     - Concepts
     - Abstraction
     - Store
