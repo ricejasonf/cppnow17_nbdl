@@ -20,3 +20,4 @@ include_directories(${CMAKE_BINARY_DIR}/code_snips/generated_include)
 
 add_subdirectory(code_snips)
 add_subdirectory(metabench)
+add_subdirectory(web_app)

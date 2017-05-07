@@ -7,6 +7,10 @@
 #add_definitions(-Wextra)
 
 # metabench.cmake is added in Dockerfile
+if(NOT EXISTS "/opt/metabench.cmake")
+  return()
+endif()
+
 include("/opt/metabench.cmake")
 
 add_subdirectory(static_polymorphism)

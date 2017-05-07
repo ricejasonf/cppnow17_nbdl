@@ -7,6 +7,7 @@ const escape_quotes = (html) => html.replace(/"/g, '\\"')
 const get_code_file = (name) => fs.readFileSync('../code/' + name, 'utf8')
 const stylize = (css, html) => inline_css(html, { url: 'm', extraCss: css, removeHtmlSelectors: true })
 const to_hana_string = (str) => "hana::string<'" + str.split('').join("', '") + "'>"
+const to_hana_string_escaped = (str) => to_hana_string(str).replace(/\\/g, '\\\\')
 const to_string_literal = (html) => '\n    "' + html.split('\n').join('\\n"\n    "') + '"'
 
 const specialize = (name, string_literal) => [
@@ -25,8 +26,14 @@ const get_inlined = (name) => stylize(fs.readFileSync('./highlightjs/styles/ir-b
                                                    html
                                                    ))))
 
-fs.mkdirSync('../generated_include')
+
+const include_dir = '../generated_include'
+if (!fs.existsSync(include_dir))
+{
+  fs.mkdirSync(include_dir)
+  fs.mkdirSync(include_dir + '/generated')
+}
 
 Promise.all(fs.readdirSync('../code/').map(get_inlined))
-.then((parts) => fs.writeFileSync('../generated_include/generated_code_syntax.hpp', parts.join('\n\n')))
+.then((parts) => fs.writeFileSync(include_dir + '/generated/code_syntax.hpp', parts.join('\n\n')))
 .catch((err) => console.log('REJECTION: ', err))
