@@ -7,7 +7,8 @@
   <link rel="stylesheet" href="/origins.css" />
   <script type="text/javascript">
     window.Module = {
-      onRuntimeInitialized: function()
+      noExitRuntime: true
+    , onRuntimeInitialized: function()
       {
         window.Module._start();
       }

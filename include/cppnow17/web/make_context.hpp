@@ -26,8 +26,13 @@ namespace cppnow17::web
   {
     using namespace nbdl::ui_spec;
     using namespace nbdl::webui::html;
+
     //return div(text_node("Hello world"_s));
-    return render_slide(hana::at_c<0>(cppnow17::slides));
+    constexpr auto range = hana::make_range(hana::size_c<0>, hana::length(slides));
+    return hana::unpack(range, [](auto ...i)
+    { 
+      return div(attr_class("slides"_s), render_slide(i, hana::at(slides, i))...);
+    });
   }
   constexpr auto my_html_renderer = nbdl::webui::renderer<decltype(make_spec())>{};
 

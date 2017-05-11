@@ -14,13 +14,27 @@
 
 namespace cppnow17::web
 {
+  namespace hana = boost::hana;
       
-  auto syntax_slide = [](auto header, auto syntax)
+  auto syntax_slide = [](auto index, auto header, auto syntax)
   {
     using namespace boost::hana::literals;
     using namespace nbdl::webui::html;
+    using namespace nbdl::ui_spec;
 
-    return div(attr_class("slide current"_s), div(
+    constexpr std::size_t i = decltype(index)::value;
+
+    return div(
+      attr_class(concat(
+        "slide "_s
+      , match(get(current_slide)
+        , when<hana::size_t<i>>("current"_s)
+        , when<hana::size_t<i + 1>>("next"_s)
+        , when<hana::size_t<i - 1>>("prev"_s)
+        , when<>(""_s)
+        )
+      ))
+    , div(
       attr_class("slide-syntax"_s),
       div(
         attr_class("header"_s),
@@ -34,13 +48,14 @@ namespace cppnow17::web
         )
       ),
       div()
-    ));
+    )
+    );
   };
 
   struct render_slide_fn
   {
-    template <typename Spec>
-    constexpr auto operator()(Spec) const
+    template <typename Index, typename Spec>
+    constexpr auto operator()(Index index, Spec) const
     {
       namespace tag = slide_spec::tag;
       constexpr Spec spec{};
@@ -49,7 +64,7 @@ namespace cppnow17::web
       
       if constexpr(key == tag::syntax)
       {
-        return decltype(syntax_slide(props[tag::header], props[tag::name])){};
+        return decltype(syntax_slide(index, props[tag::header], props[tag::name])){};
       }
       else
       {

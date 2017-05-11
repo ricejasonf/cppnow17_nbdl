@@ -24,6 +24,14 @@ namespace cppnow17
         header("First Slide"_s)
       , name("test.cpp"_s)
       )
+    , syntax(
+        header("Second Slide"_s)
+      , name("test.cpp"_s)
+      )
+    , syntax(
+        header("Third Slide"_s)
+      , name("test.cpp"_s)
+      )
     );
   }
 
