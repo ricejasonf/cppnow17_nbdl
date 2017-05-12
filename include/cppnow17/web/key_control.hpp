@@ -10,6 +10,8 @@
 #include <cppnow17/make_context_def.hpp>
 
 #include <boost/hana.hpp>
+#include <emscripten.h>
+#include <emscripten/html5.h>
 #include <nbdl.hpp>
 
 namespace cppnow17::web
@@ -17,12 +19,14 @@ namespace cppnow17::web
   namespace hana = boost::hana;
   using namespace boost::hana::literals;
 
-  struct key_control { }
+  struct key_control { };
 
   template <typename ContextHandle>
   struct key_control_impl
   {
-    ContextHandler ctx;
+    using hana_tag = key_control;
+
+    ContextHandle ctx;
 
     static EM_BOOL keyup_callback(int /* event_type */
                                 , EmscriptenKeyboardEvent const* event_info
@@ -30,21 +34,40 @@ namespace cppnow17::web
                                  )
     {
       reinterpret_cast<key_control_impl*>(self)->handle_event(event_info);
+      return EM_TRUE;
+    }
+
+    void register_callback()
+    {
+      emscripten_set_keyup_callback(0 , this , EM_FALSE , &key_control_impl::keyup_callback);
+    }
+
+    void unregister_callback()
+    {
+      emscripten_set_keyup_callback(0 , this, EM_FALSE , 0);
     }
 
     key_control_impl(ContextHandle c)
       : ctx(std::move(c))
     {
-      // register call back
-      emscripten_set_keyup_callback(
-        0
-      , this
-      , EM_FALSE
-      , &key_control_impl::keyup_callback
-      );
+      register_callback();
     }
 
-    // TODO implement destructor to release handler??
+    key_control_impl(key_control_impl const& other)
+      : ctx(other.ctx)
+    {
+      other.unregister_callback();
+      register_callback();
+    }
+
+    key_control_impl(key_control_impl&& other)
+      : ctx(std::move(other).ctx)
+    {
+      other.unregister_callback();
+      register_callback();
+    }
+
+    // Can not unregister in destructor because unregister effects all handlers :/
 
     void handle_event(EmscriptenKeyboardEvent const* e)
     {
@@ -61,19 +84,25 @@ namespace cppnow17::web
 
     void left_arrow()
     {
+      //EM_ASM("console.log('left_arrow')");
+      constexpr auto key = hana::transform(slide_action, hana::typeid_);
+
       ctx.push(
         ctx
         .message_api()
-        .make_upstream_create_message(slide_action, slide_action_prev)
+        .make_upstream_create_message(key, slide_action_prev)
       );
     }
 
     void right_arrow()
     {
+      //EM_ASM("console.log('right_arrow')");
+      constexpr auto key = hana::transform(slide_action, hana::typeid_);
+
       ctx.push(
         ctx
         .message_api()
-        .make_upstream_create_message(slide_action, slide_action_next)
+        .make_upstream_create_message(key, slide_action_next)
       );
     }
   };
@@ -88,7 +117,7 @@ namespace nbdl
     template <typename ContextHandle>
     static auto apply(ContextHandle&& ctx)
     {
-      return key_control_impl<ContextHandle>(std::forward<ContextHandle>(ctx));
+      return cppnow17::web::key_control_impl<ContextHandle>(std::forward<ContextHandle>(ctx));
     }
   };
 
@@ -96,7 +125,7 @@ namespace nbdl
   struct send_downstream_message_impl<cppnow17::web::key_control>
   {
     template <typename Consumer, typename Message>
-    static auto apply(Consumer&& c, Message&& m)
+    static auto apply(Consumer&&, Message&&)
     {
       // do nothing
     }

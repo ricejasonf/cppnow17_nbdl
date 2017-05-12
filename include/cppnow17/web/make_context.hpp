@@ -7,10 +7,12 @@
 #ifndef CPPNOW17_WEB_MAKE_CONTEXT_HPP
 #define CPPNOW17_WEB_MAKE_CONTEXT_HPP
 
-#include <boost/hana.hpp>
 #include <cppnow17/make_context_def.hpp>
 #include <cppnow17/slides.hpp>
 #include <cppnow17/web/render_slide.hpp>
+#include <cppnow17/web/key_control.hpp>
+
+#include <boost/hana.hpp>
 #include <nbdl.hpp>
 #include <nbdl/ui_spec.hpp>
 #include <nbdl/webui/html.hpp>
@@ -38,9 +40,15 @@ namespace cppnow17::web
 
   auto make_context_def()
   {
+    using namespace nbdl_def;
+
     return cppnow17::make_context_def(
       nbdl::echo_provider{}
     , my_html_renderer
+    , Context(
+        Name("key_control"_s)
+      , Type(key_control{})
+      )
     );
   };
   
@@ -50,6 +58,7 @@ namespace cppnow17::web
     return nbdl::make_unique_context<context>(
       hana::type_c<void>
     , std::forward<ConsumerArg>(c)
+    , hana::type_c<void>
     );
   }
 }

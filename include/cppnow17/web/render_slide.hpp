@@ -29,8 +29,8 @@ namespace cppnow17::web
         "slide "_s
       , match(get(current_slide)
         , when<hana::size_t<i>>("current"_s)
-        , when<hana::size_t<i + 1>>("next"_s)
-        , when<hana::size_t<i - 1>>("prev"_s)
+        , when<hana::size_t<i + 1>>("prev"_s)
+        , when<hana::size_t<i - 1>>("next"_s)
         , when<>(""_s)
         )
       ))
