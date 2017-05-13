@@ -17,10 +17,15 @@ add_custom_command(
   ${code_snips_npm}/index.js
 )
 
-add_custom_target(code_snips
-  WORKING_DIRECTORY "./src"
+add_custom_command(
+  OUTPUT generated_include/generated/code_syntax.hpp
   COMMAND node index.js
   DEPENDS
   ${code_snips_npm}/index.js
   ${code_snips_npm}/node_modules
+  WORKING_DIRECTORY "./src"
+)
+
+add_custom_target(code_snips
+  DEPENDS generated_include/generated/code_syntax.hpp
 )

@@ -20,30 +20,137 @@ namespace cppnow17
     using namespace cppnow17::slide_spec;
 
     return mpdef::make_list(
-      title()
-     ,bulleted(
+      title(
+        header("Nbdl"_s)
+      , description("A library that uses metaprogramming... A lot"_s)
+      )
+    , bulleted(
         header("Overview"_s)
       , bullets(
           "What is Nbdl?"_s
-        , "Concepts"_s
         , "Abstraction"_s
+        , "Concepts"_s
         , "Empty Interface"_s
         , "Store"_s
         , "Promises"_s
         , "Deployment"_s
         )
       )
-    , syntax(
-        header("First Slide"_s)
-      , name("test.cpp"_s)
+    , bulleted(
+        header("What is Nbdl?"_s)
+      , bullets(
+          "Manages State"_s
+        , "Communicates Changes in State"_s
+        , "Provides implementations for common use cases"_s
+        )
+      )
+    // TODO Add diagram here
+    , title(
+        header("Abstraction"_s)
+      , description(""_s)
       )
     , syntax(
-        header("Second Slide"_s)
-      , name("test.cpp"_s)
+        header("hana::Monad"_s)
+      , name("hana_monad.cpp"_s)
       )
     , syntax(
-        header("Third Slide"_s)
-      , name("test.cpp"_s)
+        header("hana::flatten_impl"_s)
+      , name("hana_flatten_impl.cpp"_s)
+      )
+    , syntax(
+        header("hana::flatten"_s)
+      , name("hana_flatten.cpp"_s)
+      )
+    , syntax(
+        header("hana::tag_of"_s)
+      , name("tag_of_tuple.cpp"_s)
+      )
+    , syntax(
+        header("hana::tag_of"_s)
+      , name("tag_of_my_struct.cpp"_s)
+      )
+    , syntax(
+        header(""_s)
+      , name("tag_of_my_list.cpp"_s)
+      )
+    , title(
+        header("Concepts"_s)
+      , description(""_s)
+      )
+    , bulleted(
+        header("Producer"_s)
+      , bullets(
+          "make_producer"_s
+        , "send_upstream_message"_s
+        )
+      )
+    , syntax(
+        header("Echo Producer"_s)
+      , name("producer_impl.cpp"_s)
+      )
+    , syntax(
+        header("make_producer"_s)
+      , name("producer_make.cpp"_s)
+      )
+    , syntax(
+        header(""_s)
+      , name("producer_send.cpp"_s)
+      )
+    , bulleted(
+        header("Consumer"_s)
+      , bullets(
+          "make_consumer"_s
+        , "send_downstream_message"_s
+        , "notify_state_change"_s
+        )
+      )
+    , syntax(
+        header("Pushing Messages"_s)
+      , name("consumer_key_event.cpp"_s)
+      )
+    , syntax(
+        header(""_s)
+      , name("consumer_notify.cpp"_s)
+      )
+    // TODO Store goes here
+    , bulleted(
+        header("Entity"_s)
+      , bullets(
+          "NBDL_ENTITY"_s
+        )
+      )
+    , syntax(
+        header("NBDL_ENTITY"_s)
+      , name("entity_define.cpp"_s)
+      )
+    , bulleted(
+        header("BindableSequence BindableMap"_s)
+      , bullets(
+          "bind_sequence"_s
+        , "bind_map"_s
+        )
+      )
+    , syntax(
+        header(""_s)
+      , name("bind_stuff.cpp"_s)
+      )
+    , syntax(
+        header(""_s)
+      , name("bind_stuff_output.cpp"_s)
+      )
+    , bulleted(
+        header("BindableVariant"_s)
+      , bullets(
+          "bind_variant"_s
+        )
+      )
+    , syntax(
+        header(""_s)
+      , name("bindable_variant.cpp"_s)
+      )
+    , syntax(
+        header(""_s)
+      , name("bindable_variant_output.cpp"_s)
       )
     );
   }

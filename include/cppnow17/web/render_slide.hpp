@@ -40,16 +40,16 @@ namespace cppnow17::web
       );
     };
 
-    auto title = []() {
+    auto title = [](auto header, auto description) {
       return div(
         attr_class("title-slide"_s)
       , div(
           attr_class("header"_s)
-        , text_node("Nbdl"_s)
+        , text_node(header)
         )
       , div(
           attr_class("description"_s)
-        , text_node("A library that uses metaprogramming... A lot"_s)
+        , text_node(description)
         )
       );
     };
@@ -114,7 +114,10 @@ namespace cppnow17::web
       }
       else if constexpr(key == tag::title)
       {
-        return decltype(view::slide_container(index, view::title())){};
+        return decltype(view::slide_container(
+          index
+        , view::title(props[tag::header], props[tag::description])
+        )){};
       }
       else
       {
