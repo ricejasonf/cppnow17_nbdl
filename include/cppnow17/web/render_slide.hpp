@@ -16,41 +16,74 @@ namespace cppnow17::web
 {
   namespace hana = boost::hana;
       
-  auto syntax_slide = [](auto index, auto header, auto syntax)
+  namespace view
   {
     using namespace boost::hana::literals;
     using namespace nbdl::webui::html;
     using namespace nbdl::ui_spec;
 
-    constexpr std::size_t i = decltype(index)::value;
+    auto slide_container = [](auto index, auto child)
+    {
+      constexpr std::size_t i = decltype(index)::value;
 
-    return div(
-      attr_class(concat(
-        "slide "_s
-      , match(get(current_slide)
-        , when<hana::size_t<i>>("current"_s)
-        , when<hana::size_t<i + 1>>("prev"_s)
-        , when<hana::size_t<i - 1>>("next"_s)
-        , when<>(""_s)
+      return div(
+        attr_class(concat(
+          "slide "_s
+        , match(get(current_slide)
+          , when<hana::size_t<i>>("current"_s)
+          , when<hana::size_t<i + 1>>("prev"_s)
+          , when<hana::size_t<i - 1>>("next"_s)
+          , when<>(""_s)
+          )
+        ))
+      , child
+      );
+    };
+
+    auto title = []() {
+      return div(
+        attr_class("title-slide"_s)
+      , div(
+          attr_class("header"_s)
+        , text_node("Nbdl"_s)
         )
-      ))
-    , div(
-      attr_class("slide-syntax"_s),
-      div(
-        attr_class("header"_s),
-        text_node(header)
-      ),
-      div(
-        attr_class("syntax-container"_s),
-        pre(
-          attr_class("syntax"_s),
-          unsafe_set_inner_html(code_syntax(syntax))
+      , div(
+          attr_class("description"_s)
+        , text_node("A library that uses metaprogramming... A lot"_s)
         )
-      ),
-      div()
-    )
-    );
-  };
+      );
+    };
+
+    auto syntax_slide = [](auto header, auto syntax)
+    {
+      return div(
+        attr_class("slide-syntax"_s)
+      , div(
+          attr_class("header"_s)
+        , text_node(header)
+        )
+      , div(
+          attr_class("syntax-container"_s)
+        , pre(
+            attr_class("syntax"_s)
+          , unsafe_set_inner_html(code_syntax(syntax))
+          )
+        )
+      );
+    };
+
+    auto bulleted_slide = [](auto header, auto ...bullets)
+    {
+      return div(
+        attr_class("slide-bulleted"_s)
+      , div(
+          attr_class("header"_s)
+        , text_node(header)
+        )
+      , ul(li(text_node(bullets))...)
+      );
+    };
+  }
 
   struct render_slide_fn
   {
@@ -64,7 +97,24 @@ namespace cppnow17::web
       
       if constexpr(key == tag::syntax)
       {
-        return decltype(syntax_slide(index, props[tag::header], props[tag::name])){};
+        return decltype(view::slide_container(
+          index
+        , view::syntax_slide(props[tag::header], props[tag::name])
+        )){};
+      }
+      else if constexpr(key == tag::bulleted)
+      {
+        return decltype(view::slide_container(
+          index
+        , hana::unpack(
+            props[tag::bullets]
+          , hana::partial(view::bulleted_slide, props[tag::header])
+          )
+        )){};
+      }
+      else if constexpr(key == tag::title)
+      {
+        return decltype(view::slide_container(index, view::title())){};
       }
       else
       {

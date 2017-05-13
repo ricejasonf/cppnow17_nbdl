@@ -66,6 +66,10 @@ a {
   transform: translate(150%);
 }
 
+.title-slide {
+  font-size:3em;
+}
+
 .slide-syntax {
   display:flex;
   flex-direction:column;
@@ -73,10 +77,15 @@ a {
   justify-content:center;
 }
 
-.slide-syntax .header {
+.header {
 	text-decoration:none;
   font-weight:bold;
   font-size:3.0em;
+}
+
+.slide-bulleted ul {
+  font-size:2.5em;
+  list-style-type:circle;
 }
 
 pre.syntax {

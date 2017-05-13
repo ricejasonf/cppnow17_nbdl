@@ -84,7 +84,7 @@ namespace cppnow17::web
 
     void left_arrow()
     {
-      //EM_ASM("console.log('left_arrow')");
+      EM_ASM("console.log('left_arrow')");
       constexpr auto key = hana::transform(slide_action, hana::typeid_);
 
       ctx.push(
@@ -96,7 +96,7 @@ namespace cppnow17::web
 
     void right_arrow()
     {
-      //EM_ASM("console.log('right_arrow')");
+      EM_ASM("console.log('right_arrow')");
       constexpr auto key = hana::transform(slide_action, hana::typeid_);
 
       ctx.push(
@@ -112,7 +112,7 @@ namespace cppnow17::web
 namespace nbdl
 {
   template <>
-  struct make_consumer_impl<cppnow17::web::key_control>
+  struct make_state_consumer_impl<cppnow17::web::key_control>
   {
     template <typename ContextHandle>
     static auto apply(ContextHandle&& ctx)
@@ -122,12 +122,25 @@ namespace nbdl
   };
 
   template <>
-  struct send_downstream_message_impl<cppnow17::web::key_control>
+  struct notify_state_change_impl<cppnow17::web::key_control>
   {
-    template <typename Consumer, typename Message>
-    static auto apply(Consumer&&, Message&&)
+    template <typename Consumer, typename Path>
+    static auto apply(Consumer const& c, Path const& path)
     {
-      // do nothing
+      if constexpr(decltype(hana::typeid_(path) == hana::typeid_(cppnow17::current_slide)){})
+      {
+        nbdl::match(c.ctx, cppnow17::current_slide, [](auto value)
+        {
+          if constexpr(hana::typeid_(value) == hana::type_c<nbdl::unresolved>)
+          {
+            EM_ASM("console.log('current_slide: nbdl::unresolved');");
+          }
+          else
+          {
+            EM_ASM_("console.log('current_slide: hana::size_c<' + $0 + '>');", hana::value(value));
+          }
+        });
+      }
     }
   };
 }

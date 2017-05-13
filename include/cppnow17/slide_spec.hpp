@@ -11,9 +11,13 @@
 
 namespace cppnow17::slide_spec
 {
+  MPDEF_DIRECTIVE(bulleted);
   MPDEF_DIRECTIVE(syntax);
+  MPDEF_DIRECTIVE(title);
+
   MPDEF_DIRECTIVE_LEAF(header);
   MPDEF_DIRECTIVE_LEAF(name);
+  MPDEF_DIRECTIVE_LIST(bullets);
 }
 
 #endif

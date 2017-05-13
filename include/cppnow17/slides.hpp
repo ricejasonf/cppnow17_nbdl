@@ -20,7 +20,20 @@ namespace cppnow17
     using namespace cppnow17::slide_spec;
 
     return mpdef::make_list(
-      syntax(
+      title()
+     ,bulleted(
+        header("Overview"_s)
+      , bullets(
+          "What is Nbdl?"_s
+        , "Concepts"_s
+        , "Abstraction"_s
+        , "Empty Interface"_s
+        , "Store"_s
+        , "Promises"_s
+        , "Deployment"_s
+        )
+      )
+    , syntax(
         header("First Slide"_s)
       , name("test.cpp"_s)
       )

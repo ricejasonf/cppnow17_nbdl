@@ -43,7 +43,7 @@ namespace cppnow17::web
     using namespace nbdl_def;
 
     return cppnow17::make_context_def(
-      nbdl::echo_provider{}
+      nbdl::echo_producer{}
     , my_html_renderer
     , Context(
         Name("key_control"_s)

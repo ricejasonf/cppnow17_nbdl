@@ -27,8 +27,8 @@ namespace cppnow17
     using namespace nbdl_def;
 
     return Context(
-      Providers(
-        Provider(
+      Producers(
+        Producer(
           Name("producer"_s)
         , Type(ProducerTag{})
         , AccessPoint(

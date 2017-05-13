@@ -211,7 +211,6 @@ module.exports = function(hljs) {
     'make_context',
     'make_def',
     'make_delta',
-    'make_provider',
     'make_producer',
     'make_state_consumer',
     'make_store',
