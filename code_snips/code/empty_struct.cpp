@@ -1,0 +1,1 @@
+struct ding_bat { };

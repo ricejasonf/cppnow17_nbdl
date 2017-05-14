@@ -9,6 +9,12 @@ RUN git clone -b bugfix/constexpr_arrays https://github.com/ricejasonf/hana.git 
   && cp -r hana/include/* /usr/local/src/emscripten/system/include \
   && rm -rf hana
 
+# Kvasir.Mpl
+RUN git clone -b development https://github.com/kvasir-io/mpl.git \
+  && cp -r mpl/src/* /usr/local/include \
+  && cp -r mpl/src/* /usr/local/src/emscripten/system/include \
+  && rm -rf mpl
+
 # Nbdl
 #RUN git clone -b cppnow17 https://github.com/ricejasonf/nbdl.git \
 RUN git clone -b refactor/path_spec https://github.com/ricejasonf/nbdl.git \

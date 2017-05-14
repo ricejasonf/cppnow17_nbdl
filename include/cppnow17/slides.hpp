@@ -20,6 +20,7 @@ namespace cppnow17
     using namespace cppnow17::slide_spec;
 
     return mpdef::make_list(
+#if 0
       title(
         header("Nbdl"_s)
       , description("A library that uses metaprogramming... A lot"_s)
@@ -30,9 +31,9 @@ namespace cppnow17
           "What is Nbdl?"_s
         , "Abstraction"_s
         , "Concepts"_s
-        , "Empty Interface"_s
         , "Store"_s
         , "Promises"_s
+        , "Empty Interface"_s
         , "Deployment"_s
         )
       )
@@ -112,7 +113,6 @@ namespace cppnow17
         header(""_s)
       , name("consumer_notify.cpp"_s)
       )
-    // TODO Store goes here
     , bulleted(
         header("Entity"_s)
       , bullets(
@@ -120,7 +120,7 @@ namespace cppnow17
         )
       )
     , syntax(
-        header("NBDL_ENTITY"_s)
+        header(""_s)
       , name("entity_define.cpp"_s)
       )
     , bulleted(
@@ -151,6 +151,104 @@ namespace cppnow17
     , syntax(
         header(""_s)
       , name("bindable_variant_output.cpp"_s)
+      )
+    , bulleted(
+        header("Store"_s)
+      , bullets(
+          "match"_s
+        , "apply_action"_s
+        )
+      )
+    , syntax(
+        header("hana::map as a Store"_s)
+      , name("store_match_hana_map.cpp"_s)
+      )
+    , syntax(
+        header("Entity as a Store"_s)
+      , name("store_match_entity.cpp"_s)
+      )
+    , syntax(
+        header("hana::Sequence as a Store"_s)
+      , name("store_match_tuple.cpp"_s)
+      )
+    , syntax(
+        header("A variant as a Store"_s)
+      , name("store_match_variant.cpp"_s)
+      )
+    , syntax(
+        header("variant identity"_s)
+      , name("store_match_variant_id.cpp"_s)
+      )
+    , bulleted(
+        header(""_s)
+      , bullets(
+          "match_path"_s
+        )
+      )
+    , syntax(
+        header("match_path"_s)
+      , name("store_match_path.cpp"_s)
+      )
+    , syntax(
+        header("match_path"_s)
+      , name("store_match_path_nothing.cpp"_s)
+      )
+    , title(
+        header("Promises"_s)
+      , description(""_s)
+      )
+    , bulleted(
+        header(""_s)
+      , bullets(
+          "run_sync"_s
+        )
+      )
+    , syntax(
+        header("path_promise"_s)
+      , name("path_promise.cpp"_s)
+      )
+    , syntax(
+        header("path_promise... rejected"_s)
+      , name("path_promise_reject.cpp"_s)
+      )
+    , syntax(
+        header(""_s)
+      , name("require_type.cpp"_s)
+      )
+    , bulleted(
+        header(""_s)
+      , bullets(
+          "run_async"_s
+        )
+      )
+    , syntax(
+        header("Simple Server/Client"_s)
+      , name("run_async.cpp"_s)
+      )
+    , syntax(
+        header("No std::shared_ptr!"_s)
+      , name("run_async_connect.cpp"_s)
+      )
+    , syntax(
+        header("Unhandled Rejection!"_s)
+      , name("unhandled_rejection.cpp"_s)
+      )
+#endif
+      title(
+        header("Empty UI"_s)
+      , description(""_s)
+      )
+    , syntax(
+        header("Empty... Stateless... Perfect"_s)
+      , name("empty_struct.cpp"_s)
+      )
+    , syntax(
+        header("Html"_s)
+      , name("empty_html.cpp"_s)
+      )
+    , syntax(
+        header("Matching values in stores"_s)
+      , name("empty_html_match.cpp"_s)
       )
     );
   }
