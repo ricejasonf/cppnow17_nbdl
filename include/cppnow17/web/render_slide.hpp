@@ -9,6 +9,7 @@
 
 #include <boost/hana.hpp>
 #include <cppnow17/code_syntax.hpp>
+#include <cppnow17/diagram.hpp>
 #include <cppnow17/slide_spec.hpp>
 #include <nbdl/webui/html.hpp>
 
@@ -24,7 +25,7 @@ namespace cppnow17::web
 
     auto slide_container = [](auto index, auto child)
     {
-      constexpr std::size_t i = decltype(index)::value;
+      constexpr std::size_t i = hana::value(index);
 
       return div(
         attr_class(concat(
@@ -83,6 +84,11 @@ namespace cppnow17::web
       , ul(li(text_node(bullets))...)
       );
     };
+
+    auto overview_diagram = div(
+      attr_class("slide-overview-diagram"_s)
+    , unsafe_set_inner_html(cppnow17::overview_diagram)
+    );
   }
 
   struct render_slide_fn
@@ -117,6 +123,13 @@ namespace cppnow17::web
         return decltype(view::slide_container(
           index
         , view::title(props[tag::header], props[tag::description])
+        )){};
+      }
+      else if constexpr(key == tag::overview_diagram)
+      {
+        return decltype(view::slide_container(
+          index 
+        , view::overview_diagram
         )){};
       }
       else

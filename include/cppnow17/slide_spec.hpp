@@ -12,6 +12,7 @@
 namespace cppnow17::slide_spec
 {
   MPDEF_DIRECTIVE(bulleted);
+  MPDEF_DIRECTIVE(overview_diagram);
   MPDEF_DIRECTIVE(syntax);
   MPDEF_DIRECTIVE(title);
 

@@ -20,7 +20,6 @@ namespace cppnow17
     using namespace cppnow17::slide_spec;
 
     return mpdef::make_list(
-#if 0
       title(
         header("Nbdl"_s)
       , description("A library that uses metaprogramming... A lot"_s)
@@ -45,7 +44,7 @@ namespace cppnow17
         , "Provides implementations for common use cases"_s
         )
       )
-    // TODO Add diagram here
+    , overview_diagram()
     , title(
         header("Abstraction"_s)
       , description(""_s)
@@ -233,8 +232,7 @@ namespace cppnow17
         header("Unhandled Rejection!"_s)
       , name("unhandled_rejection.cpp"_s)
       )
-#endif
-      title(
+    , title(
         header("Empty UI"_s)
       , description(""_s)
       )
