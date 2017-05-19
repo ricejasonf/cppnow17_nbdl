@@ -93,3 +93,7 @@ pre.syntax {
 	font-size:1.2em;
 	background-color:#0A0A0A;
 }
+
+.slide-overview-diagram {
+  transform:scale(0.8);
+}

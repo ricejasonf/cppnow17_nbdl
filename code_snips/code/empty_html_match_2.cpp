@@ -1,6 +1,6 @@
 auto slide_container = [](auto index, auto child)
 {
-  constexpr std::size_t i = decltype(index)::value;
+  constexpr std::size_t i = hana::value(index);
 
   // Don't do this!
   return div(

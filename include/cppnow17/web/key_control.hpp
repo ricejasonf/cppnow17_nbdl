@@ -131,6 +131,8 @@ namespace nbdl
       {
         nbdl::match(c.ctx, cppnow17::current_slide, [](auto value)
         {
+          EM_ASM_("console.log('current_slide: ' + $0)", value.value);
+#if 0
           if constexpr(hana::typeid_(value) == hana::type_c<nbdl::unresolved>)
           {
             EM_ASM("console.log('current_slide: nbdl::unresolved');");
@@ -139,6 +141,7 @@ namespace nbdl
           {
             EM_ASM_("console.log('current_slide: hana::size_c<' + $0 + '>');", hana::value(value));
           }
+#endif
         });
       }
     }

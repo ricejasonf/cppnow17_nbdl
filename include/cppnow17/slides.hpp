@@ -33,8 +33,12 @@ namespace cppnow17
         , "Store"_s
         , "Promises"_s
         , "Empty Interface"_s
-        , "Deployment"_s
+        , "Using Docker"_s
         )
+      )
+    , syntax(
+        header("Readable code?"_s)
+      , name("empty_html_match_2.cpp"_s)
       )
     , bulleted(
         header("What is Nbdl?"_s)
@@ -247,6 +251,18 @@ namespace cppnow17
     , syntax(
         header("Matching values in stores"_s)
       , name("empty_html_match.cpp"_s)
+      )
+    , syntax(
+        header("Using Predicates"_s)
+      , name("empty_html_match_if.cpp"_s)
+      )
+    // TODO docker stuff
+    , bulleted(
+        header("Special Thanks"_s)
+      , bullets(
+          "Louis Dionne"_s
+        , "Nathan Sculli"_s
+        )
       )
     );
   }

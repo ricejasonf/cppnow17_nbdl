@@ -21,6 +21,28 @@ namespace cppnow17
 
   constexpr std::size_t slide_count = hana::value(hana::length(slides));
 
+  struct current_slide_tag { };
+
+  struct current_slide_t
+  {
+    unsigned int value;
+  };
+
+  struct current_slide_c_tag { };
+
+  template <unsigned int i>
+  struct current_slide_c_t
+  {
+    using hana_tag = current_slide_c_tag;
+    static constexpr current_slide_t value = {i};
+  };
+
+  template <unsigned int i>
+  constexpr current_slide_c_t<i> current_slide_c{};
+
+  // To be used as a key: nbdl::context keys are always Paths (ie Sequence of keys)
+  constexpr auto current_slide = hana::tuple<current_slide_tag>{};
+
   namespace detail
   {
     template <typename>
@@ -32,46 +54,30 @@ namespace cppnow17
       using type = nbdl::variant<hana::size_t<i>...>;
     };
 
-    template <std::size_t i>
-    constexpr auto apply_slide_action(hana::size_t<i>, slide_action_prev_t)
+    constexpr auto apply_slide_action(current_slide_t s, slide_action_prev_t)
     {
-      if constexpr(i == 0)
+      if (s.value == 0)
       {
-        return hana::size_c<0>;
+        return current_slide_t{0};
       }
       else
       {
-        return hana::size_c<(i - 1) % slide_count>;
+        return current_slide_t{(s.value - 1) % slide_count};
       }
     }
 
-    template <std::size_t i>
-    constexpr auto apply_slide_action(hana::size_t<i>, slide_action_next_t)
+    constexpr auto apply_slide_action(current_slide_t s, slide_action_next_t)
     {
-      if constexpr(i == slide_count - 1)
+      if (s.value == slide_count - 1)
       {
-        return hana::size_c<slide_count - 1>;
+        return current_slide_t{slide_count - 1};
       }
       else
       {
-        return hana::size_c<(i + 1) % slide_count>;
+        return current_slide_t{(s.value + 1) % slide_count};
       }
-    }
-
-    template <typename Action>
-    constexpr auto apply_slide_action(nbdl::unresolved, Action)
-    {
-      return hana::size_c<0>;
     }
   }
-
-  struct current_slide_tag { };
-  using current_slide_t = typename detail::make_slide_variant<
-    std::make_index_sequence<slide_count>
-  >::type;
-
-  // To be used as a key: nbdl::context keys are always Paths (ie Sequence of keys)
-  constexpr auto current_slide = hana::tuple<current_slide_tag>{};
 
   /*
    * current_slide_store
@@ -81,8 +87,7 @@ namespace cppnow17
     current_slide_t value;
 
     current_slide_store()
-      : value()
-      //: value(hana::size_c<0>)
+      : value(current_slide_t{0})
     { }
   };
 }
@@ -90,14 +95,12 @@ namespace cppnow17
 namespace nbdl
 {
   template<>
-  struct match_impl<cppnow17::current_slide_store>
+  struct get_impl<cppnow17::current_slide_store>
   {
-    template <typename Store, typename Key, typename Fn>
-    static auto apply(Store&& store, Key&&, Fn&& fn)
+    template <typename Store, typename Key>
+    static auto apply(Store const& store, Key&&)
     {
-      std::forward<Store>(store).value.match(
-        std::forward<Fn>(fn)
-      );
+      return store.value;
     }
   };
 
@@ -113,20 +116,72 @@ namespace nbdl
         && decltype(message::get_path_type(m)){} == hana::typeid_(cppnow17::slide_action)
       )
       {
-        store.value.match([&](auto old_value)
+        auto old_value = store.value;
+        message::get_payload(std::forward<Message>(m)).match([&](auto action)
         {
-          message::get_payload(std::forward<Message>(m)).match([&](auto action)
+          if constexpr(hana::typeid_(action) != hana::type_c<nbdl::unresolved>)
           {
-            if constexpr(hana::typeid_(action) != hana::type_c<nbdl::unresolved>)
-            {
-              auto new_value = cppnow17::detail::apply_slide_action(old_value, action);
-              store.value = new_value;
-              std::forward<Fn>(fn)(cppnow17::current_slide);
-            }
-          });
+            auto new_value = cppnow17::detail::apply_slide_action(old_value, action);
+            store.value = new_value;
+            std::forward<Fn>(fn)(cppnow17::current_slide);
+          }
         });
       }
     }
   };
+}
+
+namespace boost::hana
+{
+  // Comparable
+
+  template <>
+  struct equal_impl<cppnow17::current_slide_t, cppnow17::current_slide_t>
+  {
+    constexpr static auto apply(cppnow17::current_slide_t x, cppnow17::current_slide_t y)
+    {
+      return x.value = y.value;
+    }
+  };
+
+  template <>
+  struct equal_impl<cppnow17::current_slide_t, cppnow17::current_slide_c_tag>
+  {
+    template <unsigned int i>
+    constexpr static auto apply(cppnow17::current_slide_t x
+                              , cppnow17::current_slide_c_t<i> y)
+    {
+      return x.value == y.value.value;
+    }
+  };
+
+  template <>
+  struct equal_impl<cppnow17::current_slide_c_tag, cppnow17::current_slide_t>
+  {
+    template <unsigned int i>
+    constexpr static auto apply(cppnow17::current_slide_c_t<i> x
+                              , cppnow17::current_slide_t y)
+    {
+      return x.value.value == y.value;
+    }
+  };
+
+  // Constant
+
+  template <>
+  struct value_impl<cppnow17::current_slide_c_tag>
+  {
+    template <typename T>
+    static auto apply(T)
+    {
+      return T::value;
+    }
+  };
+}
+
+namespace cppnow17
+{
+  static_assert(boost::hana::equal(current_slide_t{42}, current_slide_c<42>));
+  static_assert(boost::hana::equal(current_slide_c<42>, current_slide_t{42}));
 }
 #endif
