@@ -8,10 +8,12 @@
 #define CPPNOW17_CODE_SYNTAX_HPP
 
 #include <boost/hana/core/to.hpp>
+#include <boost/hana/string.hpp>
 
 namespace cppnow17
 {
   namespace hana = boost::hana;
+  using namespace hana::literals;
 
   struct code_syntax_tag { };
 
@@ -21,6 +23,7 @@ namespace cppnow17
     struct code_syntax;
 
     #include <generated/code_syntax.hpp>
+    #include <cppnow17/docker_syntax.tpl.hpp>
   }
 
   auto code_syntax = [](auto name)

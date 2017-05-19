@@ -1,0 +1,20 @@
+...
+<span style="color:#0000c0"># Boost.Hana (c++1z workaround branch)</span>
+<span style="color:#af5f00">RUN</span> git clone -b bugfix/constexpr_arrays \
+      <span style="color:#008080"><a href="https://github.com/ricejasonf/hana.git">https://github.com/ricejasonf/hana.git</a></span> \
+  &amp;&amp; <span style="color:#008080">cp</span> -r hana/include/* /usr/local/src/emscripten/system/include \
+  &amp;&amp; <span style="color:#008080">rm</span> -rf hana
+
+<span style="color:#0000c0"># Kvasir.Mpl</span>
+<span style="color:#af5f00">RUN</span> git clone -b development \
+      <span style="color:#008080"><a href="https://github.com/kvasir-io/mpl.git">https://github.com/kvasir-io/mpl.git</a></span> \
+  &amp;&amp; <span style="color:#008080">cp</span> -r mpl/src/* /usr/local/include \
+  &amp;&amp; <span style="color:#008080">cp</span> -r mpl/src/* /usr/local/src/emscripten/system/include \
+  &amp;&amp; <span style="color:#008080">rm</span> -rf mpl
+
+<span style="color:#0000c0"># Nbdl</span>
+<span style="color:#af5f00">RUN</span> git clone -b cppnow17 \
+      <span style="color:#008080"><a href="https://github.com/ricejasonf/nbdl.git">https://github.com/ricejasonf/nbdl.git</a></span> \
+  &amp;&amp; <span style="color:#008080">cp</span> -r nbdl/include/* /usr/local/src/emscripten/system/include \
+  &amp;&amp; <span style="color:#008080">rm</span> -rf nbdl
+...

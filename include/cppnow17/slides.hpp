@@ -256,7 +256,14 @@ namespace cppnow17
         header("Using Predicates"_s)
       , name("empty_html_match_if.cpp"_s)
       )
-    // TODO docker stuff
+    , title(
+        header("Docker"_s)
+      , description(""_s)
+      )
+    , syntax(
+        header("Dependencies"_s)
+      , name("docker_deps"_s)
+      )
     , bulleted(
         header("Special Thanks"_s)
       , bullets(
