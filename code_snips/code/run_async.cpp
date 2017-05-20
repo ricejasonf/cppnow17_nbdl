@@ -1,12 +1,12 @@
 asio::io_service io;
 
-nbdl::run_async(nbdl::pipe(
+nbdl::run_async(hana::make_tuple(
   example::accept(io, example::port({1234}))
 , nbdl::tap(   [](auto&&...)  { std::cout << "Client connection accepted"; })
 , nbdl::catch_([](auto&&)     { std::cout << "SERVER ERROR"; })
 ));
 
-nbdl::run_async(nbdl::pipe(
+nbdl::run_async(hana::make_tuple(
   example::connect(io, example::port{1234})
 , nbdl::tap(   [](auto&&)            { std::cout << "Connected to server"; })
 , nbdl::catch_([](example::attempts) { std::cout << "failed with too many attempts"; })

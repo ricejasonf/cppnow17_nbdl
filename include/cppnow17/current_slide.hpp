@@ -133,7 +133,7 @@ namespace nbdl
 
 namespace boost::hana
 {
-  // Comparable
+  // Comparable (don't do this)
 
   template <>
   struct equal_impl<cppnow17::current_slide_t, cppnow17::current_slide_t>
@@ -177,6 +177,11 @@ namespace boost::hana
       return T::value;
     }
   };
+}
+
+namespace nbdl
+{
+  NBDL_ENTITY(cppnow17::current_slide_t, value);
 }
 
 namespace cppnow17

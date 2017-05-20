@@ -5,18 +5,14 @@
   <meta content="utf-8" http-equiv="encoding">
   <title>Full Stack Blog</title>
   <link rel="stylesheet" href="/origins.css" />
-  <script type="text/javascript">
-    window.Module = {
-      noExitRuntime: true
-    , onRuntimeInitialized: function()
-      {
-        window.Module._start();
-      }
-    };
-  </script>
   <script src="/web_app.js"></script>
 </head>
 <body>
   <div id="nbdl-app" > </div>
+  <script type="text/javascript">
+    window.setTimeout(function() {
+        window.Module._start();
+    }, 2000);
+  </script>
 </body>
 </html>

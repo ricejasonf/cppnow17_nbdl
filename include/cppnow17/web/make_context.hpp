@@ -33,7 +33,19 @@ namespace cppnow17::web
     constexpr auto range = hana::make_range(hana::size_c<0>, hana::length(slides));
     return hana::unpack(range, [](auto ...i)
     { 
-      return div(attr_class("slides"_s), render_slide(i, hana::at(slides, i))...);
+      return div(
+        attr_class("app-container"_s)
+      , div(
+          attr_class("slides"_s)
+        , render_slide(i, hana::at(slides, i))...
+        )
+      , div(
+          attr_class("counter"_s)
+        , text_node(get(current_slide, "value"_s))
+        , text_node("/"_s)
+        , text_node(hana::length(slides) - hana::size_c<1>)
+        )
+      );
     });
   }
   constexpr auto my_html_renderer = nbdl::webui::renderer<decltype(make_spec())>{};

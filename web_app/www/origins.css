@@ -31,7 +31,7 @@ a {
 	text-decoration:underline;
 }
 
-#nbdl-app {
+#nbdl-app, .app-container {
   width:100%;
   height:100%;
 }
@@ -96,4 +96,11 @@ pre.syntax {
 
 .slide-overview-diagram {
   transform:scale(0.8);
+}
+
+.counter {
+  font-size:1.2em;
+  position:fixed;
+  bottom:0px;
+  right:0px;
 }

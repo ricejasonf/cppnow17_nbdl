@@ -49,9 +49,13 @@ namespace cppnow17
         )
       )
     , overview_diagram()
+    , syntax(
+        header(""_s)
+      , name("make_context.cpp"_s)
+      )
     , title(
         header("Abstraction"_s)
-      , description(""_s)
+      , description("Boost.Hana Style"_s)
       )
     , syntax(
         header("hana::Monad"_s)
@@ -218,6 +222,10 @@ namespace cppnow17
         header(""_s)
       , name("require_type.cpp"_s)
       )
+    , syntax(
+        header("Eager 'index_if'"_s)
+      , name("find_index.cpp"_s)
+      )
     , bulleted(
         header(""_s)
       , bullets(
@@ -268,7 +276,6 @@ namespace cppnow17
         header("Special Thanks"_s)
       , bullets(
           "Louis Dionne"_s
-        , "Nathan Sculli"_s
         )
       )
     );

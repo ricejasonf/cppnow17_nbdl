@@ -4,7 +4,7 @@ account_t account{
 };
 
 nbdl::run_sync(
-  nbdl::pipe(
+  hana::make_tuple(
     nbdl::path_promise(get("person"_s, "name"_s, hana::type_c<name_last_t>))
   , require_type<name_last_t>
   , value_of, to_upper
