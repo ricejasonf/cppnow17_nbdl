@@ -1,6 +1,9 @@
 add_executable(web_app main.cpp)
 
-set(link_flags "--bind -s EXPORTED_FUNCTIONS=\"['_start']\" -s ASSERTIONS=1")
+set(
+  link_flags
+  "--bind -s EXPORTED_FUNCTIONS=\"['_start']\" --memory-init-file 0"
+)
 get_target_property(existing_link_flags web_app LINK_FLAGS)
 if (existing_link_flags)
   set(link_flags "${existing_link_flags} ${link_flags})")
@@ -13,14 +16,20 @@ add_custom_command(
   TARGET web_app POST_BUILD
   COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/www ${www_dir}
   COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/web_app.js ${www_dir}/web_app.js
-  COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/web_app.js.mem ${www_dir}/web_app.js.mem
+# COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/web_app.js.mem ${www_dir}/web_app.js.mem
   DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/www/index.js
 )
 
 add_custom_target(hot_dev
   COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/www/index.html ${www_dir}/index.html
   COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/www/origins.css ${www_dir}/origins.css
+  COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/www/bundle_template.html ${www_dir}/bundle_template.html
   COMMAND http-server
   DEPENDS web_app
   WORKING_DIRECTORY ${www_dir}
+)
+
+add_custom_target(bundle_html
+  COMMAND node ${CMAKE_CURRENT_SOURCE_DIR}/consolidate.js ${CMAKE_CURRENT_BINARY_DIR}/www
+  DEPENDS web_app
 )
