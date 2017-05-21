@@ -3,6 +3,24 @@
 > Below is an outline sort of correlating to slides
 > Provide code samples in slides to show purpose
 
+## Build the Web App
+
+```
+make image_web_develop && make web_develop
+```
+... then in the docker container
+```
+root@f2b146e7bad9:/opt/build# make code_snips && make hot_dev
+```
+
+This will run a local http server on port 8080 with the built web app.
+(It takes about a minute to compile right now)
+
+The bundled html file is in `/bundle.html`
+
+
+Thanks for checking it out!
+
 
 ## Purpose of Talk
 
