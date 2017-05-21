@@ -179,6 +179,14 @@ namespace cppnow17
       , name("store_match_tuple.cpp"_s)
       )
     , syntax(
+        header("nbdl::get_impl"_s)
+      , name("store_get_impl.cpp"_s)
+      )
+    , syntax(
+        header("hana::Searchable get_impl"_s)
+      , name("store_get_map.cpp"_s)
+      )
+    , syntax(
         header("A variant as a Store"_s)
       , name("store_match_variant.cpp"_s)
       )
