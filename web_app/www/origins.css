@@ -17,7 +17,7 @@ body {
 	background-color:#000000;
 	color:#CCCCCC;
 	padding:1em;
-	font-size:1.5vw;
+	font-size:1.3vw;
   margin:0;
   padding:0;
 }
@@ -101,6 +101,48 @@ pre.syntax {
 .counter {
   font-size:1.2em;
   position:fixed;
+  top:0px;
+  right:0px;
+}
+
+.copyright:before {
+  content: "\00a9 ";
+}
+
+.copyright {
+  font-size:1.2em;
+  position:fixed;
   bottom:0px;
   right:0px;
+}
+.conference-name {
+  font-size:1.2em;
+  position:fixed;
+  bottom:0px;
+  left:0px;
+}
+
+@media print {
+  html, body {
+	  font-size:0.8vw;
+    overflow: visible;
+  }
+
+  .counter {
+    display:none;
+  }
+
+  .slide,
+  .slide.prev,
+  .slide.current,
+  .slide.next {
+    display:flex;
+    position:relative;
+    page-break-after: always;
+    transform: none;
+  }
+
+  .slide-overview-diagram {
+    transform:scale(0.8);
+  }
 }

@@ -45,6 +45,14 @@ namespace cppnow17::web
         , text_node("/"_s)
         , text_node(hana::length(slides) - hana::size_c<1>)
         )
+      , div (
+          attr_class("conference-name"_s)
+        , text_node("C++Now 2017"_s)
+        )
+      , div (
+          attr_class("copyright"_s)
+        , text_node("Jason Rice 2017"_s)
+        )
       );
     });
   }
