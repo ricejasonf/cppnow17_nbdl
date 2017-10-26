@@ -37,6 +37,7 @@ namespace cppnow17
             , Store<cppnow17::current_slide_store>
             , Entity<current_slide_t>
             , PathKey<current_slide_tag>
+            , ListenPaths(Path<slide_action_tag>)
             )
           , AccessPoint(
               Name("slide_action"_s)

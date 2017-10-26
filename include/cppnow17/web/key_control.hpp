@@ -16,6 +16,7 @@
 
 namespace cppnow17::web
 {
+  namespace message = nbdl::message;
   namespace hana = boost::hana;
   using namespace boost::hana::literals;
 
@@ -85,24 +86,20 @@ namespace cppnow17::web
     void left_arrow()
     {
       EM_ASM("console.log('left_arrow')");
-      constexpr auto key = hana::transform(slide_action, hana::typeid_);
+      constexpr auto path = message::make_create_path<slide_action_tag>(hana::tuple<>{});
 
       ctx.push(
-        ctx
-        .message_api()
-        .make_upstream_create_message(key, slide_action_prev)
+        message::make_upstream_create(path, message::no_uid, slide_action_t{slide_action_prev})
       );
     }
 
     void right_arrow()
     {
       EM_ASM("console.log('right_arrow')");
-      constexpr auto key = hana::transform(slide_action, hana::typeid_);
+      constexpr auto path = message::make_create_path<slide_action_tag>(hana::tuple<>{});
 
       ctx.push(
-        ctx
-        .message_api()
-        .make_upstream_create_message(key, slide_action_next)
+        message::make_upstream_create(path, message::no_uid, slide_action_t{slide_action_next})
       );
     }
   };

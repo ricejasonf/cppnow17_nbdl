@@ -105,7 +105,7 @@ namespace nbdl
   };
 
   template<>
-  struct apply_foreign_action_impl<cppnow17::current_slide_store>
+  struct apply_foreign_message_impl<cppnow17::current_slide_store>
   {
     template <typename Store, typename Message, typename Fn>
     static void apply(Store& store, Message&& m, Fn&& fn)
