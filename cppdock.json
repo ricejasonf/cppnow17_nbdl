@@ -1,0 +1,42 @@
+{
+  "cppdock": {
+    "name": "cppnow17_nbdl"
+  },
+  "platforms": [
+    {
+      "type": "emscripten",
+      "deps": [
+        {
+          "name": "boostorg/callable_traits",
+          "revision": "684dfbd7dfbdd0438ef3670be10002ca33a71715",
+          "tag": "master"
+        },
+        {
+          "name": "boostorg/config",
+          "revision": "0cdf4a5da8f2569061721abfeb3a43456cb060dc",
+          "tag": "HEAD"
+        },
+        {
+          "name": "boostorg/hana",
+          "revision": "59393cac76e718210cdf06316e1ab496ee2079eb",
+          "tag": "develop"
+        },
+        {
+          "name": "boostorg/mp11",
+          "revision": "bb15b2f7f663a9d41bfaab105f1918662dddfd05",
+          "tag": "develop"
+        },
+        {
+          "name": "ldionne/dyno",
+          "revision": "a95020f799d64c3b76e5ca377a0465deed1badb1",
+          "tag": "master"
+        },
+        {
+          "name": "ricejasonf/nbdl",
+          "revision": "002943142dae151a96bb3ef5fa1971e408cb1b73",
+          "tag": "develop"
+        }
+      ]
+    }
+  ]
+}
